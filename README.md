@@ -1,1 +1,1 @@
-# mehrdod-lectures-part-1
+First part of Go 0.0 course's lectures
