@@ -27,11 +27,6 @@ type Employee struct {
 	Salary        int
 }
 
-func (e *Employee) TotalMoneyEarned() int {
-	totalMonths := time.Now().Sub(e.DateOfJoining).Hours() / 24 / 30
-	return int(totalMonths) * e.Salary
-}
-
 func NewEmployee(companyID int) Employee {
 	var employee Employee
 
@@ -61,47 +56,6 @@ type Company struct {
 	Employees          []Employee
 }
 
-// TotalMoneySpentOnSalaries возвращает общее количество денег потраченных на оплату труда сотрудников
-func (c *Company) TotalMoneySpentOnSalaries() (totalMoney int) {
-
-	return
-}
-
-// YearsOfExistence возвращает разницу между текущим годом и годом основания компании
-func (c *Company) YearsOfExistence() int {
-	return 2023 - c.YearOfFoundation
-}
-
-// IncomeDifference возвращает разницу между доходом текущего и предыдущего года
-func (c *Company) IncomeDifference() int {
-	return c.CurrentYearIncome - c.PreviousYearIncome
-}
-
-// HasEmployee принимает имя сотрудника и проверяет есть ли такой сотрудник в массиве сотрудников компании
-func (c *Company) HasEmployee(name string) bool {
-	for _, employee := range c.Employees {
-		if employee.Name == name {
-			return true
-		}
-	}
-	return false
-}
-
-// implement employee
-
-func (c *Company) PrintInfo() {
-	fmt.Printf("ID:\t\t\t%d\n", c.ID)
-	fmt.Printf("Name:\t\t\t%s\n", c.Name)
-	fmt.Printf("Location:\t\t%s\n", c.Location)
-	fmt.Printf("Year of foundation:\t%d\n", c.YearOfFoundation)
-	fmt.Printf("Current year income:\t%d\n", c.CurrentYearIncome)
-	fmt.Printf("Previous year income:\t%d\n", c.PreviousYearIncome)
-	fmt.Println("Employees")
-	for _, e := range c.Employees {
-		fmt.Println(e)
-	}
-}
-
 func NewCompany() Company {
 	var company Company
 
@@ -121,7 +75,15 @@ func NewCompany() Company {
 	return company
 }
 
+func (c Company) String() string {
+	return fmt.Sprintf(
+		"\tID: %d\n\tName: %s\n\tLocation: %s\n\tYear of foundation: %d\n\tNumber of employees: %d\n",
+		c.ID, c.Name, c.Location, c.YearOfFoundation, len(c.Employees),
+	)
+}
+
 func main() {
 	company := NewCompany()
-	company.PrintInfo()
+	fmt.Println("Company")
+	fmt.Print(company)
 }
